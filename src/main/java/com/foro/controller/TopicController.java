@@ -60,4 +60,9 @@ public class TopicController {
         return topicService.getAllTopics();
     }
 
+
+    @GetMapping("/{id}")
+    public TopicResponseDTO getTopic(@PathVariable Long id) {
+        return topicService.getTopicById(id);
+    }
 }

@@ -33,4 +33,10 @@ public class TopicService {
                 topic.getCourse().getName()       // Nombre del curso
         );
     }
+
+    public TopicResponseDTO getTopicById(Long id) {
+        Topic topic = topicRepository.findByIdWithAuthorAndCourse(id)
+                .orElseThrow(() -> new RuntimeException("Tópico no encontrado con ID: " + id));
+        return mapToTopicResponseDTO(topic);
+    }
 }
