@@ -14,6 +14,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;

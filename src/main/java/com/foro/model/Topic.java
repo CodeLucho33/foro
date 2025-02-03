@@ -1,6 +1,9 @@
 package com.foro.model;
 
+import com.foro.dto.TopicRequestDTO;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,7 +23,7 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTopic;
-    private String tittle;
+    private String title;
     @Lob
     private String message;
     @CreationTimestamp
@@ -28,12 +31,22 @@ public class Topic {
     private Date dateCreated;
     private boolean status;
 
-   @ManyToOne
-   private User author;
-   @ManyToOne
-   private Course course;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
+    @ManyToOne
+    private Course course;
 
-   @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
-   private List<Response> responses;
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Response> responses;
+
+
+    public Topic(@NotBlank String title, @NotBlank String message, User author, Course course) {
+        this.title = title;
+        this.message = message;
+        this.author = author;
+        this.course = course;
+
+    }
 
 }
