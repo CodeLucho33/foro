@@ -20,11 +20,13 @@ public class Response {
     @Lob
     private String message;
     @ManyToOne
+    @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
     @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
     private  User author;
     private boolean isSolve;
 }

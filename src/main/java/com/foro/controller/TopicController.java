@@ -2,6 +2,7 @@ package com.foro.controller;
 
 import com.foro.dto.TopicRequestDTO;
 import com.foro.dto.TopicResponseDTO;
+import com.foro.dto.TopicUpdateDTO;
 import com.foro.model.Course;
 import com.foro.model.Topic;
 import com.foro.model.User;
@@ -64,5 +65,19 @@ public class TopicController {
     @GetMapping("/{id}")
     public TopicResponseDTO getTopic(@PathVariable Long id) {
         return topicService.getTopicById(id);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public TopicResponseDTO updateTopic(
+            @PathVariable Long id,
+            @RequestBody @Valid TopicUpdateDTO topicUpdateDTO) {
+        return topicService.updateTopic(id, topicUpdateDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deleteTopic(@PathVariable Long id) {
+        topicService.deleteTopic(id);
     }
 }
