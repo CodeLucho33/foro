@@ -1,19 +1,20 @@
 package com.foro.controller;
 
 import com.foro.dto.TopicRequestDTO;
+import com.foro.dto.TopicResponseDTO;
 import com.foro.model.Course;
 import com.foro.model.Topic;
 import com.foro.model.User;
 import com.foro.repository.CourseRepository;
 import com.foro.repository.TopicRepository;
 import com.foro.repository.UserRepository;
+import com.foro.sevice.TopicService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/topics")
@@ -24,6 +25,8 @@ public class TopicController {
     private final CourseRepository courseRepository;
     @Autowired
     private final UserRepository userRepository;
+    @Autowired
+    private TopicService topicService;
 
 
     public TopicController(TopicRepository topicRepository, UserRepository userRepository, CourseRepository courseRepository) {
@@ -50,6 +53,11 @@ public class TopicController {
         );
 
         topicRepository.save(topic);
+    }
+
+    @GetMapping
+    public List<TopicResponseDTO> getAllTopics() {
+        return topicService.getAllTopics();
     }
 
 }
